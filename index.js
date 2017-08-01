@@ -7,18 +7,16 @@ const LOCALES = ['en', 'pt', 'es'];
 const KEY = process.env.LOCO_KEY;
 const FORMAT='script';
 
-const writeFile = fileName => {
-  return data => {
-    const fileContent = typeof(data) === 'object' ? JSON.stringify(data) : data;
+const writeFile = fileName => data => {
+  const fileContent = typeof(data) === 'object' ? JSON.stringify(data) : data;
 
-    fs.writeFile(fileName, fileContent, (error) => {
-      if (error) {
-        throw error;
-      }
+  fs.writeFile(fileName, fileContent, (error) => {
+    if (error) {
+      throw error;
+    }
 
-      console.log(`File ${fileName} was successfully created.`)
-    })
-  }
+    console.log(`File ${fileName} was successfully created.`)
+  })
 };
 
 const _get = (options, cb) => {
