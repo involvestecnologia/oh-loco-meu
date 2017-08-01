@@ -9,7 +9,7 @@ const KEY = process.env.LOCO_KEY;
 const FORMAT='script';
 
 const log = (message) => {
-  if (process.env.NODE_ENV.toLowerCase() !== 'production') {
+  if (process.env.NODE_ENV && process.env.NODE_ENV.toLowerCase() !== 'production') {
     console.log(message);
   }
 };
