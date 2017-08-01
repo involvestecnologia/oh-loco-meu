@@ -5,7 +5,9 @@ module.exports = {
   entry: './index.js',
   output: {
     filename: 'ohlocomeu.bundle.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
+    library: '',
+    libraryTarget: 'commonjs',
   },
   module: {
   rules: [
@@ -22,6 +24,8 @@ module.exports = {
   ]
 },
   plugins: [
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin(),
   ],
   node: {
