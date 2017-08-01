@@ -1,0 +1,30 @@
+{
+  "name": "oh-loco-meu",
+  "version": "0.1.0",
+  "description": "Fetching script for loco i18n files",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thiagozanetti/oh-loco-meu.git"
+  },
+  "keywords": [
+    "loco",
+    "localization",
+    "i18n"
+  ],
+  "author": "Thiago Zanetti <thiago.project@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thiagozanetti/oh-loco-meu/issues"
+  },
+  "homepage": "https://github.com/thiagozanetti/oh-loco-meu#readme",
+  "dependencies": {
+    "axios": "^0.16.2",
+    "jsonschema": "^1.1.1",
+    "webpack": "^3.4.1"
+  }
+}
