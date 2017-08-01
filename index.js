@@ -44,7 +44,7 @@ const get = (locales, types, filePath) => {
   locales.forEach(locale => {
     types.forEach(type => {
       const format = type === 'json' ? FORMAT : null;
-      const filePath = path.join(filePath ,`${locale}.${type}`);
+      filePath = path.join(filePath ,`${locale}.${type}`);
       const options = {
         locale,
         type,
