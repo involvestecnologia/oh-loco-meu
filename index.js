@@ -8,6 +8,12 @@ const LOCALES = [ { global: 'en', local:'en_US' }, { global: 'pt', local: 'pt_BR
 const KEY = process.env.LOCO_KEY;
 const FORMAT='script';
 
+const log = (message) => {
+  if (process.env.NODE_ENV.toLowerCase() !== 'production') {
+    console.log(message);
+  }
+};
+
 const writeFile = result => {
   const fileContent = typeof(result.data) === 'object' ?
     JSON.stringify(result.data) :
@@ -18,7 +24,7 @@ const writeFile = result => {
       throw error;
     }
 
-    console.log(`File ${result.options.filePath} was successfully created.`)
+    log(`File ${result.options.filePath} was successfully created.`)
   })
 };
 
@@ -29,7 +35,7 @@ const _get = (options, cb) => {
     url = url.concat(`&format=${options.format}`);
   }
 
-  console.log(`Getting i18n info for ${options.locale.global}.${options.type}`);
+  log(`Getting i18n info for ${options.locale.global}.${options.type}`);
 
   axios.get(url).then(response => {
     const result = {
