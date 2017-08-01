@@ -13,12 +13,12 @@ const writeFile = result => {
     JSON.stringify(result.data) :
     result.data;
 
-  fs.writeFile(result.filePath, fileContent, (error) => {
+  fs.writeFile(result.options.filePath, fileContent, (error) => {
     if (error) {
       throw error;
     }
 
-    console.log(`File ${filePath} was successfully created.`)
+    console.log(`File ${result.options.filePath} was successfully created.`)
   })
 };
 
@@ -40,11 +40,12 @@ const _get = (options, cb) => {
   });
 };
 
-const get = (locales, types, filePath) => {
+const get = (locales, types, pathPrefix) => {
   locales.forEach(locale => {
     types.forEach(type => {
       const format = type === 'json' ? FORMAT : null;
-      filePath = path.join(filePath ,`${locale}.${type}`);
+      const filePath = path.join(pathPrefix ,`${locale}.${type}`);
+      console.log(filePath);
       const options = {
         locale,
         type,
@@ -58,10 +59,10 @@ const get = (locales, types, filePath) => {
   });
 };
 
-const getAll = (filePath) => {
-  filePath = filePath || '.';
+const getAll = (pathPrefix) => {
+  pathPrefix = pathPrefix || '.';
 
-  get(LOCALES, TYPES, filePath);
+  get(LOCALES, TYPES, pathPrefix);
 };
 
 module.exports = {
