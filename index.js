@@ -4,7 +4,7 @@ const fs = require('fs');
 
 const SERVICE_PREFIX = 'https://localise.biz/api/export/locale';
 const TYPES = ['json', 'properties'];
-const LOCALES = ['en', 'pt', 'es'];
+const LOCALES = [ { global: 'en', local:'en_US' }, { global: 'pt', local: 'pt_BR' }, { global: 'es', local: 'es_AR' }];
 const KEY = process.env.LOCO_KEY;
 const FORMAT='script';
 
@@ -23,13 +23,13 @@ const writeFile = result => {
 };
 
 const _get = (options, cb) => {
-  let url = `${SERVICE_PREFIX}/${options.locale}.${options.type}?key=${options.key}`;
+  let url = `${SERVICE_PREFIX}/${options.locale.global}.${options.type}?key=${options.key}`;
 
   if (!!options['format']) {
     url = url.concat(`&format=${options.format}`);
   }
 
-  console.log(`Getting i18n info for ${options.locale}.${options.type}`);
+  console.log(`Getting i18n info for ${options.locale.global}.${options.type}`);
 
   axios.get(url).then(response => {
     const result = {
@@ -44,7 +44,7 @@ const get = (locales, types, pathPrefix) => {
   locales.forEach(locale => {
     types.forEach(type => {
       const format = type === 'json' ? FORMAT : null;
-      const filePath = path.join(pathPrefix ,`${locale}.${type}`);
+      const filePath = path.join(pathPrefix ,`${locale.local}.${type}`);
       console.log(filePath);
       const options = {
         locale,
