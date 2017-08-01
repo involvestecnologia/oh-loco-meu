@@ -1,4 +1,5 @@
 const axios = require('axios');
+const path = require('path');
 const fs = require('fs');
 
 const SERVICE_PREFIX = 'https://localise.biz/api/export/locale';
@@ -7,15 +8,17 @@ const LOCALES = ['en', 'pt', 'es'];
 const KEY = process.env.LOCO_KEY;
 const FORMAT='script';
 
-const writeFile = fileName => data => {
-  const fileContent = typeof(data) === 'object' ? JSON.stringify(data) : data;
+const writeFile = result => {
+  const fileContent = typeof(result.data) === 'object' ?
+    JSON.stringify(result.data) :
+    result.data;
 
-  fs.writeFile(fileName, fileContent, (error) => {
+  fs.writeFile(result.filePath, fileContent, (error) => {
     if (error) {
       throw error;
     }
 
-    console.log(`File ${fileName} was successfully created.`)
+    console.log(`File ${filePath} was successfully created.`)
   })
 };
 
@@ -29,36 +32,41 @@ const _get = (options, cb) => {
   console.log(`Getting i18n info for ${options.locale}.${options.type}`);
 
   axios.get(url).then(response => {
-    cb && cb(response.data);
+    const result = {
+      options,
+      data: response.data,
+    }
+    cb && cb(result);
   });
 };
 
-const get = (locales, types) => {
+const get = (locales, types, filePath) => {
   locales.forEach(locale => {
     types.forEach(type => {
       const format = type === 'json' ? FORMAT : null;
-      const fileName = `${locale}.${type}`;
+      const filePath = path.join(filePath ,`${locale}.${type}`);
       const options = {
         locale,
         type,
         format,
+        filePath,
         key: KEY,
       };
 
-      _get(options, writeFile(fileName));
+      _get(options, writeFile);
     });
   });
 };
 
-const getAll = () => {
-  get(LOCALES, TYPES);
-}
+const getAll = (filePath) => {
+  filePath = filePath || '.';
 
-const ownModule = {
+  get(LOCALES, TYPES, filePath);
+};
+
+module.exports = {
   LOCALES,
   TYPES,
   get,
   getAll,
 };
-
-module.exports = ownModule;
