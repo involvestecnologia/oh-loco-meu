@@ -4,7 +4,7 @@ const fs = require('fs');
 const SERVICE_PREFIX = 'https://localise.biz/api/export/locale';
 const TYPES = ['json', 'properties'];
 const LOCALES = ['en', 'pt', 'es'];
-const KEY = 'HKrE53dEv_zJsKML9kT9fMqAYn3CfkuJ';
+const KEY = process.env.LOCO_KEY;
 const FORMAT='script';
 
 const writeFile = fileName => {
