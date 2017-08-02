@@ -19,27 +19,27 @@ const writeFile = result => {
     JSON.stringify(result.data) :
     result.data;
 
-  fs.writeFile(result.options.filePath, fileContent, (error) => {
+  fs.writeFile(result.props.filePath, fileContent, (error) => {
     if (error) {
       throw error;
     }
 
-    log(`File ${result.options.filePath} was successfully created.`)
+    log(`File ${result.props.filePath} was successfully created.`)
   })
 };
 
-const _get = (options, cb) => {
-  let url = `${SERVICE_PREFIX}/${options.locale.global}.${options.type}?key=${options.key}`;
+const _get = (props, cb) => {
+  let url = `${SERVICE_PREFIX}/${props.locale.global}.${props.type}?key=${props.key}`;
 
-  if (!!options['format']) {
-    url = url.concat(`&format=${options.format}`);
+  if (!!props['format']) {
+    url = url.concat(`&format=${props.format}`);
   }
 
-  log(`Getting i18n info for ${options.locale.global}.${options.type}`);
+  log(`Getting i18n info for ${props.locale.global}.${props.type}`);
 
   axios.get(url).then(response => {
     const result = {
-      options,
+      props,
       data: response.data,
     }
     cb && cb(result);
@@ -51,15 +51,16 @@ const get = (locales, types, pathPrefix) => {
     types.forEach(type => {
       const format = type === 'json' ? FORMAT : null;
       const filePath = path.join(pathPrefix ,`${locale.local}.${type}`);
-      const options = {
+      const props = {
         locale,
         type,
         format,
+        pathPrefix,
         filePath,
         key: KEY,
       };
 
-      _get(options, writeFile);
+      _get(props, writeFile);
     });
   });
 };
