@@ -23,7 +23,7 @@ ohLocoMeu.getAll('./diretorioLocalizacao')
 ohLocoMeu.get(['en', 'pt'], ['json'], './diretorioLocalizacao')
 ```
 
-Lembrando que primeiro é preciso setar o token de acesso a api do Loco na variável de ambiente `LOCO_KEY`:
+Lembrando que primeiro é preciso setar o token de acesso a api do Loco na variável de ambiente `LOCO_HTML_KEY`:
 
 ```sh
 $ export LOCO_HTML_KEY='token de acesso a api do loco';
