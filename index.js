@@ -5,7 +5,7 @@ const fs = require('fs');
 const SERVICE_PREFIX = 'https://localise.biz/api/export/locale';
 const TYPES = ['json', 'properties'];
 const LOCALES = [ { global: 'en', local:'en_US' }, { global: 'pt', local: 'pt_BR' }, { global: 'es', local: 'es_AR' }];
-const KEY = process.env.LOCO_KEY;
+const KEY = process.env.LOCO_HTML_KEY;
 const FORMAT='script';
 
 const log = (message) => {
