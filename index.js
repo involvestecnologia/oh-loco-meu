@@ -16,8 +16,12 @@ const log = (message) => {
 
 const writeFile = result => {
   const fileContent = typeof(result.data) === 'object' ?
-    JSON.stringify(result.data) :
-    result.data;
+  JSON.stringify(result.data) :
+  result.data;
+
+  if (!fs.existsSync(result.props.pathPrefix)) {
+    fs.mkdirSync(result.props.pathPrefix);
+  }
 
   fs.writeFile(result.props.filePath, fileContent, (error) => {
     if (error) {
