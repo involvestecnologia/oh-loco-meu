@@ -5,7 +5,7 @@ Exporte os arquivos de i18n  utilizando a api do [Loco](https://localise.biz).
 ## Instalação
 
 ```sh
-$ npm i --save oh-loco-meu@git+ssh://git@github.com:thiagozanetti/oh-loco-meu.git#master
+$ npm i --save oh-loco-meu@git+ssh://git@github.com:involvestecnologia/oh-loco-meu.git#master
 ```
 
 ## Modo de uso
