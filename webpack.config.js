@@ -3,6 +3,7 @@ const path = require('path');
 
 module.exports = {
   entry: './index.js',
+  mode: 'production',
   output: {
     filename: 'ohlocomeu.bundle.js',
     path: path.resolve(__dirname, 'dist'),
@@ -26,7 +27,6 @@ module.exports = {
   },
   plugins: [
     new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin(),
   ],
   externals : {
     axios: {
