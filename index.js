@@ -39,12 +39,16 @@ const _get = (props) => {
     url = url.concat(`&format=${props.format}`);
   }
 
+  if(!!props['contentFormat']) {
+    url = url.concat(`&format=${props.contentFormat}`);
+  }
+
   log(`Getting i18n info for ${props.locale.global}.${props.type}`);
 
   return axios.get(url);
 };
 
-const get = (locales, types, pathPrefix) => {
+const get = (locales, types, pathPrefix, contentFormat) => {
   let localesByType = [];
 
   locales.forEach(locale => {
@@ -57,6 +61,7 @@ const get = (locales, types, pathPrefix) => {
         format,
         pathPrefix,
         filePath,
+        contentFormat,
         key: KEY,
       };
 
